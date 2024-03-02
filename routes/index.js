@@ -53,6 +53,11 @@ router.get('/approve', protect, (req, res) => {
     else res.sendStatus(403)
 })
 
+router.get('/all', protect, (req, res) => {
+    if (debug) console.log('get/all')
+    res.sendFile(path.join(__dirname, '../pages/all.html'))
+})
+
 router.get('/create', protect, (req, res) => {
     if (debug) console.log('get/create')
     res.sendFile(path.join(__dirname, '../pages/create.html'))
@@ -170,6 +175,14 @@ router.post('/filter', protect, (req, res) => {
             })
             break
     }
+})
+
+router.post('/all', protect, (req, res) => {
+    if (debug) console.log('post/all')
+    Crypto.find({req.body.type == 'crypto'}, (err, results) => {
+        if (err) res.sendStatus(500)
+        res.send(results)
+    })
 })
 
 router.post('/approve', protect, (req, res) => {
