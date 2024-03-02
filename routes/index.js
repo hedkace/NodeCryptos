@@ -179,7 +179,7 @@ router.post('/filter', protect, (req, res) => {
 
 router.post('/all', protect, (req, res) => {
     if (debug) console.log('post/all')
-    Crypto.find({req.body.type == 'crypto'}, (err, results) => {
+    Crypto.find({type:'crypto'}, (err, results) => {
         if (err) res.sendStatus(500)
         res.send(results)
     })
