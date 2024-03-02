@@ -190,7 +190,7 @@ router.post('/approve', protect, (req, res) => {
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
-                Crypto.findbyId(req.body.crypto._id, (result) => { result.approved = Date.now() })
+                Crypto.findById(req.body.crypto._id, (result) => { result.approved = Date.now() })
                 //req.body.crypto.approved = Date.now()
                 //add crypto to queue
                 User.findOneAndUpdate({ _id: req.body.artistId }, { artist: req.body.crypto._id })
