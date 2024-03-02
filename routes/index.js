@@ -148,12 +148,12 @@ router.post('/submit', protect, (req, res) => {
     })
     newCrypto.save((err, result) => {
         console.log('[NEW CRYPTO] ' + result.name)
-        User.findById(req.user._id)
+        /*User.findById(req.user._id)
             .then(user => {
                 //this should probably happen after the crypto is approved
                 user.artist.push(result._id)
                 user.save()
-            })
+            })*/
     })
 
     res.sendStatus(200)
@@ -190,8 +190,10 @@ router.post('/approve', protect, (req, res) => {
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
-                Crypto.findOneAndUpdate({ _id: req.body.crypto._id }, { approved: Date.now() })
+                Crypto.findbyId(req.body.crypto._id, (result) => { result.approved = Date.now() })
+                //req.body.crypto.approved = Date.now()
                 //add crypto to queue
+                User.findOneAndUpdate({ _id: req.body.artistId }, { artist: req.body.crypto._id })
             }
             else {
                 Crypto.findOneAndDelete({ _id: req.body.crypto._id }, (err) => {
