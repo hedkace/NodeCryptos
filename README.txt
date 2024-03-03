@@ -17,3 +17,26 @@ SECRET // Not quite sure what this does. Just generate a random string of charac
  - If you don't input a name on mint crypto button, itll post a cryptro with name "null". It should cancel the mint instead
  - If your cookie expires and you try to access a protected page, it throws an error about sending headers. Benign, but should be cleaned up
  - The routing architecture is bad
+
+
+
+//Changes//
+Artwork no longer added to User until approved
+Approving added timestamp to artwork, adds artwork to user who created it
+Added a page with all cryptos
+
+
+//Agenda//
+
+
+Saved Colors
+Sorting
+Activity Feed
+ - active auction
+ - view auction/bid history
+ - view future auctions (newly minted cryptos)
+ - view artwork ownership transfers
+Auctions
+ - auction an artwork
+ - bid on artwork
+Running Auctions
