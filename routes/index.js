@@ -185,14 +185,16 @@ router.post('/all', protect, (req, res) => {
     })
 })
 
-router.post('/approve', protect, async (req, res) => {
+router.post('/approve', protect, (req, res) => {
     //Body obj: { type: 'user' or 'crypto', user or crypto: user or crypto, approved: bool }
     switch (req.body.type) {
         case 'crypto':
             if (req.body.approved) {
-                //req.body.crypto.approved = Date.now()
-                //add crypto to queue
-                User.findOneAndUpdate({ _id: req.body.artistId }, { artist: req.body.crypto._id })
+                Crypto.findOneAndUpdate({ _id: req.body.crypto._id }, { approved: Date.now() }, (err) => {
+                    if (!err) res.sendStatus(200)
+                    else res.sendStatus(500)
+                })
+                User.findOneAndUpdate({ _id: req.body.crypto.artistId }, { $push: {artist: req.body.crypto._id }}, (err) => {})
             }
             else {
                 Crypto.findOneAndDelete({ _id: req.body.crypto._id }, (err) => {
